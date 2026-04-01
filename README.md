@@ -2,8 +2,9 @@
 
 [![MATLAB](https://img.shields.io/badge/MATLAB-R2024b-blue.svg)](https://www.mathworks.com/products/matlab.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Status: Submitted](https://img.shields.io/badge/Status-Under_Review-orange.svg)]()
 
-Official MATLAB implementation of the paper **"New infrared small target detection based on adaptive hyperbolic density clustering and physics-driven verification"** by Zhuo Zhu, Longxin Liu, and Chengmao Wu.
+Official MATLAB implementation of the paper **"New infrared small target detection based on adaptive hyperbolic density clustering and physics-driven verification"** (Submitted to *Infrared Physics & Technology*).
 
 ## 📖 Overview
 
@@ -17,31 +18,27 @@ This repository provides the code for **PA-AHDPC**, a novel training-free detect
 2. **Adaptive Hyperbolic Manifold Clustering:** Maps features into a Poincaré ball with negative curvature. Combined with tangent-space anisotropic covariance correction, it effectively isolates weak targets from structured clutter by leveraging the exponential expansion property of hyperbolic space.
 3. **Physics-Driven Soft-Decision Verification (Strict-LGD):** Employs an energy spillover tolerance mechanism based on Point Spread Function (PSF) priors to filter out pseudo-targets (e.g., highly bright sensor dead pixels) lacking continuous energy diffusion.
 
-## 🚀 Framework
+## 📁 Repository Structure
 
-![Framework](docs/framework.png) *(Note: Please upload the framework image from the paper to a `docs` folder and link it here)*
+The repository is organized as follows:
 
-## ⚙️ Prerequisites
-
-The code has been tested on the following environment:
-* **OS:** Windows 10/11 or Linux
-* **Software:** MATLAB R2024b (or later)
-* **Hardware Requirements:** CPU (Intel Core i5-13400F or equivalent), 64 GB RAM recommended for large-scale dataset evaluations.
-
-## 📂 Datasets
-
-The algorithm is evaluated on multiple public and simulated datasets. You can download the datasets from their respective public repositories:
-* [NUAA-SIRST](https://github.com/YimianDai/open-acm)
-* [NUDT-SIRST](https://github.com/YeRen123455/Infrared-Small-Target-Detection)
-* [NUDT-MIRSDT](https://github.com/TinaLRJ/Multi-frame-infrared-small-target-detection-DTUM)
-* [IRSTD-1K](https://github.com/RuiZhang97/ISNet)
-* [TSIRMT](https://github.com/lifier/LMAFormer)
-
-Place the downloaded datasets into the `./datasets/` directory.
-
-## 🛠️ Usage
-
-1. Clone this repository:
-   ```bash
-   git clone [https://github.com/yourusername/PA-AHDPC.git](https://github.com/yourusername/PA-AHDPC.git)
-   cd PA-AHDPC
+```text
+Infrared-Target-Detection/
+├── demo.m                                  % Main executable script for a quick demo
+├── src/                                    % Core algorithm implementations
+│   ├── compute_adaptive_hyperbolic_distance.m
+│   ├── compute_LGD_strictly_paper.m        % Stage 3: Strict-LGD Soft-Decision
+│   ├── compute_LHI.m                       % Stage 1: LHI extraction
+│   ├── compute_TLLCM_vectorized.m          % Stage 1: TLLCM structural prior
+│   ├── create_surround_masks.m
+│   ├── extract_candidates_MDPS_strict.m    % Stage 1: H-MDPS Algorithm
+│   ├── infrared_target_detection.m         % Main pipeline wrapper
+│   ├── map_to_tangent_space.m              
+│   ├── mobius_addition.m                   % Möbius gyrovector operations
+│   ├── process_candidates_ahdpc.m          % Stage 2: AHDPC clustering
+│   ├── run_ahdpc_clustering.m
+│   └── shift_matrix_replicate.m
+└── test_images/                            % Sample challenging infrared scenarios
+    ├── test1.png
+    ├── test2.png
+    └── test3.png
